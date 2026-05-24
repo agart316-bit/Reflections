@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reflections — Table of Contents</title>
+<script>(function(){try{var p=localStorage.getItem('refl-palette')||'bone';document.documentElement.dataset.palette=p;var h=localStorage.getItem('refl-toc-hover');if(h)document.documentElement.dataset.tocHover=h;}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main id="screen-chapters">
+  <div class="grid">
+    <div class="toc-inner">
+
+      <header class="toc-header">
+        <div class="left">
+          <a href="index.html" class="back-btn">Preface</a>
+        </div>
+        <div class="center">
+          <span class="t-caps">Reflections · A. M. Gondane</span>
+          <h2>Table of Contents</h2>
+        </div>
+        <div class="right">
+          <span class="t-caps">Twelve Chapters</span>
+        </div>
+      </header>
+
+      <div class="toc-list" id="toc-list"></div>
+
+    </div>
+  </div>
+</main>
+
+<script src="data.js"></script>
+<script>
+const list = document.getElementById('toc-list');
+const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+CHAPTERS.forEach((ch, i) => {
+  const a = document.createElement('a');
+  a.className = 'toc-row';
+  a.href = `chapter-${ch.id}.html`;
+  a.style.setProperty('--accent', ch.color);
+  a.style.setProperty('--i', i);
+
+  const total = ch.cards.length;
+  a.innerHTML = `
+    <span class="toc-num">${ROMAN[i]}</span>
+    <div class="toc-body">
+      <h3 class="toc-name">${ch.name}</h3>
+      <p class="toc-question">${ch.question}</p>
+    </div>
+    <div class="toc-meta">
+      <span class="toc-symbol">${ch.symbol}</span>
+    </div>
+  `;
+  list.appendChild(a);
+});
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="palette-tweaks.jsx"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reflections — Chapter 9</title>
+<script>(function(){try{var p=localStorage.getItem('refl-palette')||'bone';document.documentElement.dataset.palette=p;var h=localStorage.getItem('refl-toc-hover');if(h)document.documentElement.dataset.tocHover=h;}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main id="screen-reading">
+
+  <header class="reading-header">
+    <div class="reading-header-inner">
+      <div class="reading-header-row">
+        <div class="left">
+          <a href="chapters.html" class="back-btn">Contents</a>
+        </div>
+        <div class="center">
+          <span class="reading-chapter-num" id="reading-chapter-num"></span>
+          <span class="reading-chapter-name">
+            <span class="reading-symbol" id="reading-symbol"></span>
+            <span id="reading-name"></span>
+          </span>
+        </div>
+        <div class="right">
+          <span class="reading-progress" id="reading-progress"></span>
+        </div>
+      </div>
+      <p class="reading-question" id="reading-question"></p>
+    </div>
+  </header>
+
+  <div class="fan-dim" id="fan-dim"></div>
+
+  <div class="fan-stage">
+    <div class="fan-container" id="fan-container"></div>
+  </div>
+
+  <nav class="rcard-nav" id="rcard-nav">
+    <button class="rcard-nav-btn rcard-chapter-nav" id="nav-prev-chapter" style="display: none;"><span class="arrow">←</span><span>Previous Chapter</span></button>
+    <button class="rcard-nav-btn" id="nav-prev"><span class="arrow">←</span><span>Previous</span></button>
+    <span class="rcard-nav-counter" id="nav-counter"></span>
+    <button class="rcard-nav-btn" id="nav-next"><span>Next</span><span class="arrow">→</span></button>
+    <button class="rcard-nav-btn rcard-chapter-nav" id="nav-next-chapter" style="display: none;"><span>Next Chapter</span><span class="arrow">→</span></button>
+  </nav>
+
+</main>
+
+<script src="data.js"></script>
+<script>const CHAPTER_ID = 9;</script>
+<script src="fan.js"></script>
+</body>
+</html>
