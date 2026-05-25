@@ -355,7 +355,7 @@ main { position: relative; z-index: 1; }
 }
 
 .home-inner {
-  grid-column: 2 / 12;
+  grid-column: 1 / 13;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -454,11 +454,12 @@ main { position: relative; z-index: 1; }
 }
 
 .home-preface {
-  max-width: 56ch;
+  width: min(80ch, 100%);
   display: flex;
   flex-direction: column;
   gap: 16px;
   animation: pageFade 1.6s var(--ease-paper) 0.7s both;
+  align-self: center;
 }
 .home-preface p {
   font-size: clamp(1rem, 1.25vw, 1.08rem);
@@ -466,7 +467,8 @@ main { position: relative; z-index: 1; }
   color: var(--ink-soft);
   text-align: left;
   text-wrap: pretty;
-  hyphens: auto;
+  hyphens: none;
+  margin: 0;
 }
 .home-preface p:first-child::first-letter {
   font-family: 'Cormorant Garamond', Georgia, serif;
@@ -476,6 +478,42 @@ main { position: relative; z-index: 1; }
   line-height: 0.82;
   padding: 6px 10px 0 0;
   color: var(--ink);
+}
+.home-preface-closing {
+  text-align: center !important;
+  font-style: italic;
+  color: var(--ink-mute) !important;
+  margin-top: 8px !important;
+}
+
+/* ─── A NOTE ON THE TEXT ───────────────────────────────────── */
+.home-note {
+  width: min(80ch, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: center;
+  animation: pageFade 1.6s var(--ease-paper) 0.9s both;
+  border-top: 1px solid var(--rule-soft);
+  padding-top: clamp(20px, 3vh, 32px);
+}
+.home-note-label {
+  text-align: center;
+  margin-bottom: 4px;
+}
+.home-note p {
+  font-size: clamp(0.93rem, 1.15vw, 1rem);
+  line-height: 1.78;
+  color: var(--ink-mute);
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: none;
+  margin: 0;
+}
+.home-note-closing {
+  text-align: center !important;
+  font-style: italic;
+  margin-top: 4px !important;
 }
 
 .home-cta {
@@ -930,14 +968,15 @@ main { position: relative; z-index: 1; }
   perspective: 1800px;
 }
 
-/* ─── MINIMAL FAN (≤3 cards) — sit between header and shadow ── */
+/* ─── MINIMAL FAN (≤3 cards) — centred in the space below the header ── */
 .fan-container.cards-minimal {
   height: min(300px, 42vh);
 }
 .fan-stage:has(.fan-container.cards-minimal) {
-  align-items: flex-start;
-  padding-top: clamp(90px, 12vh, 140px);
-  padding-bottom: clamp(110px, 16vh, 170px);
+  align-items: center;
+  justify-content: center;
+  padding-top: clamp(140px, 18vh, 200px);
+  padding-bottom: clamp(80px, 12vh, 140px);
 }
 
 /* ─── FAN CARD ─────────────────────────────────────────────── */
@@ -1602,6 +1641,26 @@ main { position: relative; z-index: 1; }
   text-align: center;
   letter-spacing: 0.04em;
   white-space: nowrap;
+}
+
+/* Chapter nav buttons — appear at the outer edges once all cards are read */
+.rcard-chapter-nav {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.rcard-chapter-nav:hover:not(:disabled) {
+  opacity: 1;
+  gap: 14px;
+}
+#nav-prev-chapter { order: -1; }
+#nav-next-chapter { order: 5; }
+
+/* Widen the nav bar to accommodate chapter buttons when visible */
+.rcard-nav:has(#nav-prev-chapter[style*="inline-flex"]),
+.rcard-nav:has(#nav-next-chapter[style*="inline-flex"]) {
+  width: min(720px, 92vw);
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */

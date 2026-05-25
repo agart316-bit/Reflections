@@ -284,9 +284,11 @@
       readCards.add(nextIndex);
       updateProgress();
       showNav(nextIndex);
-      document.querySelectorAll('.rcard.read-done').forEach(c => c.classList.remove('read-done'));
-      const newCard = document.querySelector(`.rcard[data-index="${nextIndex}"]`);
-      if (newCard) newCard.classList.add('read-done');
+      // Re-apply read-done to every card that has been opened, not just the current one
+      readCards.forEach(idx => {
+        const c = document.querySelector(`.rcard[data-index="${idx}"]`);
+        if (c) c.classList.add('read-done');
+      });
 
       back.style.transition = 'opacity 0.22s ease-in';
       back.style.opacity = '1';
@@ -305,6 +307,13 @@
       `${toRoman(index + 1).toLowerCase()} · ${toRoman(total).toLowerCase()}`;
     document.getElementById('nav-prev').disabled = index === 0;
     document.getElementById('nav-next').disabled = index === total - 1;
+
+    // Show chapter nav buttons only once all cards have been read
+    const allRead = readCards.size >= total;
+    const prevChapterBtn = document.getElementById('nav-prev-chapter');
+    const nextChapterBtn = document.getElementById('nav-next-chapter');
+    if (prevChapterBtn) prevChapterBtn.style.display = (allRead && ch.id > 1)  ? 'inline-flex' : 'none';
+    if (nextChapterBtn) nextChapterBtn.style.display = (allRead && ch.id < 12) ? 'inline-flex' : 'none';
   }
 
   document.getElementById('nav-prev').addEventListener('click', () => {
@@ -313,6 +322,16 @@
   document.getElementById('nav-next').addEventListener('click', () => {
     if (expandedIndex < ch.cards.length - 1) expandCard(expandedIndex + 1);
   });
+
+  const prevChapterBtn = document.getElementById('nav-prev-chapter');
+  const nextChapterBtn = document.getElementById('nav-next-chapter');
+  if (prevChapterBtn) prevChapterBtn.addEventListener('click', () => {
+    if (ch.id > 1) window.location.href = `chapter-${ch.id - 1}.html`;
+  });
+  if (nextChapterBtn) nextChapterBtn.addEventListener('click', () => {
+    if (ch.id < 12) window.location.href = `chapter-${ch.id + 1}.html`;
+  });
+
   document.getElementById('fan-dim').addEventListener('click', collapseCard);
   document.addEventListener('keydown', (e) => {
     if (expandedIndex === -1) return;
