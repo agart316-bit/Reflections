@@ -9,8 +9,8 @@
 
 :root {
   /* ── Paper & ink ─────────────────────────────────────────── */
-  --paper:        #e8e2d4;          /* warm parchment — toned down, less yellow */
-  --paper-deep:   #dcd4c0;          /* deeper, for margins/edges */
+  --paper:        #f0ece0;          /* lighter parchment */
+  --paper-deep:   #e6dece;          /* deeper, for margins/edges */
   --paper-shadow: rgba(50, 38, 20, 0.10);
   --paper-warm:   rgba(248, 238, 210, 0.38);
 
@@ -51,8 +51,8 @@
 ═══════════════════════════════════════════════════════════════════ */
 
 [data-palette="bone"] {
-  --paper:        #e6e2d6;          /* cooler, less yellow than original #ece9de */
-  --paper-deep:   #d8d3c3;
+  --paper:        #edebe1;          /* lighter bone */
+  --paper-deep:   #e0ddd1;
   --paper-shadow: rgba(38, 36, 26, 0.10);
   --paper-warm:   rgba(248, 246, 234, 0.36);
   --ink:          #131310;          /* darker for stronger contrast */
@@ -372,7 +372,7 @@ main { position: relative; z-index: 1; }
   align-items: center;
   gap: 14px;
 }
-.home-eyebrow span { letter-spacing: 0.32em; white-space: nowrap; }
+.home-eyebrow span { letter-spacing: 0.32em; white-space: nowrap; font-size: 1rem; }
 .home-eyebrow::before, .home-eyebrow::after {
   content: '';
   width: 28px;
@@ -543,14 +543,6 @@ main { position: relative; z-index: 1; }
 }
 .home-cta:hover { gap: 22px; letter-spacing: 0.42em; opacity: 1; }
 .home-cta:hover .home-cta-line { width: 72px; }
-.home-cta-arrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-variant: normal;
-  font-style: normal;
-  font-size: 1.05rem;
-  letter-spacing: 0;
-  line-height: 1;
-}
 
 /* ═══════════════════════════════════════════════════════════════════════
    CHAPTERS — TABLE OF CONTENTS
@@ -1032,7 +1024,7 @@ main { position: relative; z-index: 1; }
 .rcard-face-front {
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f0ede6;
+    #f6f4ee;
   box-shadow:
     0 1px 0 rgba(255,255,252,0.9) inset,
     0 0 0 1px rgba(29,26,19,0.10),
@@ -1150,7 +1142,7 @@ main { position: relative; z-index: 1; }
   /* Solid base colour — matches face backgrounds exactly so the
      container is invisible when the face is edge-on during the flip.
      No gradient / inset shadow here; those live only on the faces. */
-  background: #f0ede6;
+  background: #f6f4ee;
   border-radius: var(--card-r);
   box-shadow:
     0 30px 80px -20px rgba(30,22,12,0.50),
@@ -1176,7 +1168,7 @@ main { position: relative; z-index: 1; }
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f0ede6;
+    #f6f4ee;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1209,7 +1201,7 @@ main { position: relative; z-index: 1; }
   flex-direction: column;
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f0ede6;
+    #f6f4ee;
 }
 .rcard-exp-back::before {
   content: '';
@@ -1334,7 +1326,7 @@ main { position: relative; z-index: 1; }
       color-mix(in oklab, var(--accent) 10%, transparent),
       color-mix(in oklab, var(--accent) 5%, transparent)),
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    color-mix(in oklab, var(--accent) 4%, #f0ede6);
+    color-mix(in oklab, var(--accent) 4%, #f6f4ee);
 }
 .rcard.read-done .rcard-title { color: var(--accent); }
 .rcard.read-done .rcard-symbol { opacity: 1; }
@@ -1377,7 +1369,7 @@ main { position: relative; z-index: 1; }
   /* off-white page stock — same family as the cards */
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f0ede6;
+    #f6f4ee;
   border-radius: var(--card-r);
   box-shadow:
     0 1px 0 rgba(255,255,252,0.9) inset,
