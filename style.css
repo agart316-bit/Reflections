@@ -9,17 +9,17 @@
 
 :root {
   /* ── Paper & ink ─────────────────────────────────────────── */
-  --paper:        #ece1c8;          /* warm parchment — never #fff */
-  --paper-deep:   #e2d4b3;          /* deeper, for margins/edges */
-  --paper-shadow: rgba(60, 40, 15, 0.10);
-  --paper-warm:   rgba(255, 240, 200, 0.45);
+  --paper:        #e8e2d4;          /* warm parchment — toned down, less yellow */
+  --paper-deep:   #dcd4c0;          /* deeper, for margins/edges */
+  --paper-shadow: rgba(50, 38, 20, 0.10);
+  --paper-warm:   rgba(248, 238, 210, 0.38);
 
-  --ink:          #1d1a13;          /* deep brown-black — never pure black */
-  --ink-soft:     #4d4128;          /* secondary ink */
-  --ink-mute:     #877554;          /* metadata, marginalia */
-  --ink-faint:    rgba(29, 26, 19, 0.18);
-  --rule:         rgba(29, 26, 19, 0.30);
-  --rule-soft:    rgba(29, 26, 19, 0.13);
+  --ink:          #141108;          /* deep brown-black — slightly darker for contrast */
+  --ink-soft:     #312a18;          /* secondary ink — boosted contrast */
+  --ink-mute:     #665840;          /* metadata, marginalia — more readable */
+  --ink-faint:    rgba(20, 17, 8, 0.20);
+  --rule:         rgba(20, 17, 8, 0.32);
+  --rule-soft:    rgba(20, 17, 8, 0.15);
 
   /* ── Chapter accents — pulled toward natural pigments ────── */
   --c1:  #8a2418;   /* madder lake */
@@ -51,16 +51,16 @@
 ═══════════════════════════════════════════════════════════════════ */
 
 [data-palette="bone"] {
-  --paper:        #ece9de;
-  --paper-deep:   #ddd9c9;
-  --paper-shadow: rgba(40, 38, 28, 0.09);
-  --paper-warm:   rgba(255, 252, 240, 0.40);
-  --ink:          #1a1a14;
-  --ink-soft:     #403c30;
-  --ink-mute:     #807a68;
-  --ink-faint:    rgba(26, 26, 20, 0.16);
-  --rule:         rgba(26, 26, 20, 0.28);
-  --rule-soft:    rgba(26, 26, 20, 0.12);
+  --paper:        #e6e2d6;          /* cooler, less yellow than original #ece9de */
+  --paper-deep:   #d8d3c3;
+  --paper-shadow: rgba(38, 36, 26, 0.10);
+  --paper-warm:   rgba(248, 246, 234, 0.36);
+  --ink:          #131310;          /* darker for stronger contrast */
+  --ink-soft:     #2e2b22;          /* boosted from #403c30 */
+  --ink-mute:     #5e5847;          /* more readable than #807a68 */
+  --ink-faint:    rgba(19, 19, 16, 0.20);
+  --rule:         rgba(19, 19, 16, 0.30);
+  --rule-soft:    rgba(19, 19, 16, 0.13);
 }
 
 [data-palette="sage"] {
@@ -90,16 +90,16 @@
 }
 
 [data-palette="stone"] {
-  --paper:        #e0d9c8;
-  --paper-deep:   #cfc7b3;
-  --paper-shadow: rgba(45, 38, 25, 0.10);
-  --paper-warm:   rgba(248, 242, 225, 0.42);
-  --ink:          #18160f;
-  --ink-soft:     #3c3729;
-  --ink-mute:     #7c7464;
-  --ink-faint:    rgba(24, 22, 15, 0.17);
-  --rule:         rgba(24, 22, 15, 0.28);
-  --rule-soft:    rgba(24, 22, 15, 0.12);
+  --paper:        #dbd5c6;          /* toned down, less amber */
+  --paper-deep:   #cac3b0;
+  --paper-shadow: rgba(42, 36, 24, 0.10);
+  --paper-warm:   rgba(244, 238, 220, 0.38);
+  --ink:          #141209;          /* darker for contrast */
+  --ink-soft:     #302c1f;
+  --ink-mute:     #5e5848;
+  --ink-faint:    rgba(20, 18, 9, 0.20);
+  --rule:         rgba(20, 18, 9, 0.30);
+  --rule-soft:    rgba(20, 18, 9, 0.13);
 }
 
 [data-palette="rose"] {
@@ -1032,7 +1032,7 @@ main { position: relative; z-index: 1; }
 .rcard-face-front {
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f5f3ed;
+    #f0ede6;
   box-shadow:
     0 1px 0 rgba(255,255,252,0.9) inset,
     0 0 0 1px rgba(29,26,19,0.10),
@@ -1150,7 +1150,7 @@ main { position: relative; z-index: 1; }
   /* Solid base colour — matches face backgrounds exactly so the
      container is invisible when the face is edge-on during the flip.
      No gradient / inset shadow here; those live only on the faces. */
-  background: #f5f3ed;
+  background: #f0ede6;
   border-radius: var(--card-r);
   box-shadow:
     0 30px 80px -20px rgba(30,22,12,0.50),
@@ -1176,7 +1176,7 @@ main { position: relative; z-index: 1; }
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f5f3ed;
+    #f0ede6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1209,7 +1209,7 @@ main { position: relative; z-index: 1; }
   flex-direction: column;
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f5f3ed;
+    #f0ede6;
 }
 .rcard-exp-back::before {
   content: '';
@@ -1334,7 +1334,7 @@ main { position: relative; z-index: 1; }
       color-mix(in oklab, var(--accent) 10%, transparent),
       color-mix(in oklab, var(--accent) 5%, transparent)),
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    color-mix(in oklab, var(--accent) 4%, #f5f3ed);
+    color-mix(in oklab, var(--accent) 4%, #f0ede6);
 }
 .rcard.read-done .rcard-title { color: var(--accent); }
 .rcard.read-done .rcard-symbol { opacity: 1; }
@@ -1377,7 +1377,7 @@ main { position: relative; z-index: 1; }
   /* off-white page stock — same family as the cards */
   background:
     linear-gradient(180deg, rgba(255,255,252,0.55), rgba(228,226,220,0.15)),
-    #f5f3ed;
+    #f0ede6;
   border-radius: var(--card-r);
   box-shadow:
     0 1px 0 rgba(255,255,252,0.9) inset,
@@ -1663,15 +1663,147 @@ main { position: relative; z-index: 1; }
   width: min(720px, 92vw);
 }
 
-/* ─── RESPONSIVE ──────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .reading-header-row { grid-column: 1 / 13; }
-  .reading-question { grid-column: 1 / 13; font-size: 0.95rem; }
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET  (≤1024px)
+   Tightens spacing, relaxes grid columns, reduces fixed sizes.
+═══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* ─── Global grid ─────────────────────────────────── */
+  .grid {
+    padding: 0 clamp(20px, 4vw, 40px);
+  }
+
+  /* ─── Home ────────────────────────────────────────── */
+  .home-inner {
+    grid-column: 1 / 13;
+    gap: clamp(22px, 3.5vh, 40px);
+  }
+  .home-preface,
+  .home-note {
+    width: min(72ch, 100%);
+  }
+
+  /* ─── TOC ─────────────────────────────────────────── */
+  .toc-inner {
+    grid-column: 1 / 13;
+  }
+
+  /* Stack the 3-col TOC header: back link / title / count */
+  .toc-header {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+  }
+
+  .toc-row {
+    grid-template-columns: 48px 1fr 2rem;
+    gap: clamp(12px, 1.8vw, 22px);
+    padding: 16px 0;
+  }
+
+  /* ─── Reading header ──────────────────────────────── */
+  .reading-header-row {
+    grid-column: 1 / 13;
+    grid-template-columns: minmax(60px, 1fr) auto minmax(60px, 1fr);
+    gap: 16px;
+  }
+  .reading-question {
+    grid-column: 1 / 13;
+    font-size: 0.95rem;
+    padding: 0 clamp(16px, 3vw, 32px);
+  }
+
+  /* ─── Fan stage ───────────────────────────────────── */
+  .fan-stage {
+    padding-top: clamp(110px, 15vh, 160px);
+    padding-bottom: clamp(70px, 10vh, 120px);
+  }
+
+  .fan-container {
+    width: min(1000px, 98vw);
+    height: min(480px, 64vh);
+  }
+
+  .fan-container.cards-minimal {
+    height: min(280px, 40vh);
+  }
+
+  /* Cards are slightly smaller on tablet */
+  .rcard {
+    width: clamp(110px, 14vw, 150px);
+  }
+
+  /* ─── Overlay card ────────────────────────────────── */
+  .overlay-card {
+    width: min(560px, 88vw);
+    max-height: min(720px, 82dvh);
+  }
+
+  /* ─── Nav bar ─────────────────────────────────────── */
+  .rcard-nav {
+    width: min(440px, 86vw);
+    gap: clamp(16px, 3.5vw, 48px);
+    padding: 18px clamp(20px, 3.5vw, 48px) 6px;
+  }
+  .rcard-nav:has(#nav-prev-chapter[style*="inline-flex"]),
+  .rcard-nav:has(#nav-next-chapter[style*="inline-flex"]) {
+    width: min(680px, 94vw);
+  }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVE — NARROW TABLET / LARGE PHONE  (≤900px)
+   Further adjustments before we get to phone territory.
+═══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+  /* Reading header full-width */
+  .reading-header-row { grid-column: 1 / 13; }
+  .reading-question   { grid-column: 1 / 13; font-size: 0.92rem; }
+
+  /* TOC header collapses: hide side labels, centre title */
+  .toc-header {
+    grid-template-columns: auto 1fr auto;
+  }
+  .toc-header .left,
+  .toc-header .right {
+    /* Keep visible but allow natural shrink */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+  }
+
+  /* Chapter name can wrap on narrow tablet */
+  .reading-chapter-name {
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Fan a bit taller to give cards breathing room */
+  .fan-container {
+    height: min(460px, 68vh);
+  }
+
+  /* Overlay slightly wider */
+  .overlay-card {
+    width: min(520px, 92vw);
+    max-height: min(700px, 85dvh);
+  }
+
+  .ov-head  { padding: clamp(24px, 3.5vw, 36px) clamp(24px, 4vw, 48px) clamp(14px, 2vw, 20px); }
+  .ov-body  { padding: 0 clamp(24px, 4vw, 48px) clamp(20px, 3vw, 36px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVE — PHONE  (≤640px)  ← phone work deferred for now
+═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .fan-container { width: 100vw; height: 70vh; }
   .rcard { width: clamp(100px, 28vw, 140px); }
   .overlay-card { width: min(560px, 94vw); }
   .ov-head { padding: 26px 24px 16px; }
   .ov-body { padding: 0 24px 28px; }
+  .toc-row { grid-template-columns: 44px 1fr; padding: 16px 0; }
+  .toc-meta { grid-column: 2; align-items: flex-start; flex-direction: row; gap: 14px; margin-top: 8px; }
 }

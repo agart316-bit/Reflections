@@ -54,8 +54,12 @@
     const spread = Math.min(Math.max(total * 18, 30), 142);
     const startAngle = -spread / 2;
 
-    const cardW = Math.min(168, Math.max(120, window.innerWidth * 0.16));
-    const cardGap = Math.max(24, window.innerWidth * 0.025);
+    // Tablet-aware card sizing: slightly wider proportion on mid-size screens
+    const isTablet = window.innerWidth <= 1024 && window.innerWidth > 640;
+    const cardWMax = isTablet ? 150 : 168;
+    const cardWPct = isTablet ? 0.14 : 0.16;
+    const cardW = Math.min(cardWMax, Math.max(isTablet ? 110 : 120, window.innerWidth * cardWPct));
+    const cardGap = Math.max(20, window.innerWidth * 0.022);
     const rowStep = cardW + cardGap;
 
     ch.cards.forEach((cardData, i) => {
@@ -117,8 +121,11 @@
     ov.className = 'rcard-expanded';
     ov.style.setProperty('--accent', ch.color);
 
-    const W = Math.min(380, window.innerWidth * 0.82);
-    const maxH = Math.min(window.innerHeight * 0.82, 620);
+    // Wider overlay on tablet and desktop; narrower only on small screens
+    const isTablet = window.innerWidth <= 1024 && window.innerWidth > 640;
+    const overlayMaxW = isTablet ? 520 : (window.innerWidth > 1024 ? 560 : 380);
+    const W = Math.min(overlayMaxW, window.innerWidth * (isTablet ? 0.85 : 0.82));
+    const maxH = Math.min(window.innerHeight * (isTablet ? 0.84 : 0.82), isTablet ? 720 : 620);
     const L = (window.innerWidth  - W) / 2;
     const T = (window.innerHeight - maxH) / 2;
 
