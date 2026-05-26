@@ -1877,6 +1877,14 @@ main { position: relative; z-index: 1; }
     gap: 14px;
   }
 
+  /* No hover effect on the CTA button for touch devices */
+  .home-cta:hover {
+    letter-spacing: 0.32em;
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 0 2px 12px -4px rgba(20,17,8,0.28);
+  }
+
   /* ─── TOC ─────────────────────────────────────────────── */
   #screen-chapters {
     padding: clamp(20px, 4vh, 40px) 0 clamp(36px, 7vh, 64px);
