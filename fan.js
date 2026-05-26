@@ -29,6 +29,8 @@
   const readCards = new Set();
   let currentOverlay = null;
 
+  const isMobile = () => window.innerWidth <= 640;
+
   function updateProgress() {
     const total = ch.cards.length;
     const done = readCards.size;
@@ -37,8 +39,6 @@
       done === total ? 'all revealed' :
       `${done} of ${total} revealed`;
   }
-
-  const isMobile = () => window.innerWidth <= 640;
 
   function buildFan() {
     const container = document.getElementById('fan-container');
@@ -50,20 +50,19 @@
       return;
     }
 
+    container.classList.remove('grid-layout');
     const isRow = total <= 3;
 
-    // Position minimal card sets between the header and the shadow
     if (isRow) {
       container.classList.add('cards-minimal');
     } else {
       container.classList.remove('cards-minimal');
     }
-    container.classList.remove('grid-layout');
 
     const spread = Math.min(Math.max(total * 18, 30), 142);
     const startAngle = -spread / 2;
 
-    // Tablet-aware card sizing: slightly wider proportion on mid-size screens
+    // Tablet-aware card sizing
     const isTablet = window.innerWidth <= 1024 && window.innerWidth > 640;
     const cardWMax = isTablet ? 150 : 168;
     const cardWPct = isTablet ? 0.14 : 0.16;
@@ -164,16 +163,9 @@
     ov.className = 'rcard-expanded';
     ov.style.setProperty('--accent', ch.color);
 
-    // Wider overlay on tablet and desktop; narrower only on small screens
-    const mobile  = isMobile();
-    const isTablet = window.innerWidth <= 1024 && window.innerWidth > 640;
-    const overlayMaxW = mobile ? Math.min(window.innerWidth * 0.94, 480)
-                      : isTablet ? 520
-                      : 560;
-    const W = Math.min(overlayMaxW, window.innerWidth * (mobile ? 0.94 : isTablet ? 0.85 : 0.82));
-    const maxH = mobile
-      ? Math.min(window.innerHeight * 0.88, 640)
-      : Math.min(window.innerHeight * (isTablet ? 0.84 : 0.82), isTablet ? 720 : 620);
+    // ── Original sizing (desktop) — untouched ──────────────────
+    const W = Math.min(380, window.innerWidth * 0.82);
+    const maxH = Math.min(window.innerHeight * 0.82, 620);
     const L = (window.innerWidth  - W) / 2;
     const T = (window.innerHeight - maxH) / 2;
 
@@ -263,25 +255,19 @@
     document.getElementById('fan-dim').classList.add('visible');
     showNav(index);
 
-    // After glide completes, flip the whole card (rotate ov itself so
-    // nothing behind it is ever exposed — at 90° the card is edge-on
-    // and completely invisible, leaving just the dim behind it).
     setTimeout(() => {
       if (!document.body.contains(ov)) return;
 
-      // Phase 1 — fold entire card to edge
       ov.style.transition = 'transform 0.28s ease-in';
       ov.style.transform  = 'perspective(1200px) rotateY(90deg)';
 
       setTimeout(() => {
         if (!document.body.contains(ov)) return;
 
-        // At edge: swap faces
         ov.querySelector('.rcard-exp-front').style.display = 'none';
         _injectBackContent(ov, index);
         ov.querySelector('.rcard-exp-back').style.display = 'flex';
 
-        // Phase 2 — unfold from the other side
         ov.style.transition = 'none';
         ov.style.transform  = 'perspective(1200px) rotateY(-90deg)';
         void ov.offsetWidth;
@@ -326,7 +312,6 @@
     const ov = currentOverlay;
     const back = ov.querySelector('.rcard-exp-back');
 
-    // Fade the back content out, swap text, fade back in — no flip
     back.style.transition = 'opacity 0.18s ease-out';
     back.style.opacity = '0';
 
@@ -339,7 +324,6 @@
       readCards.add(nextIndex);
       updateProgress();
       showNav(nextIndex);
-      // Re-apply read-done to every card that has been opened, not just the current one
       readCards.forEach(idx => {
         const c = document.querySelector(`.rcard[data-index="${idx}"]`);
         if (c) c.classList.add('read-done');
@@ -348,7 +332,6 @@
       back.style.transition = 'opacity 0.22s ease-in';
       back.style.opacity = '1';
 
-      // Clean up inline transition after fade completes
       setTimeout(() => {
         if (back && document.body.contains(ov)) back.style.transition = '';
       }, 220);
@@ -363,7 +346,6 @@
     document.getElementById('nav-prev').disabled = index === 0;
     document.getElementById('nav-next').disabled = index === total - 1;
 
-    // Show chapter nav buttons only once all cards have been read
     const allRead = readCards.size >= total;
     const prevChapterBtn = document.getElementById('nav-prev-chapter');
     const nextChapterBtn = document.getElementById('nav-next-chapter');
@@ -394,10 +376,10 @@
     if (e.key === 'ArrowRight') document.getElementById('nav-next').click();
     if (e.key === 'ArrowLeft')  document.getElementById('nav-prev').click();
   });
+
   let _lastMobile = isMobile();
   window.addEventListener('resize', () => {
     if (expandedIndex !== -1) collapseCard();
-    // Rebuild fan/grid if mobile breakpoint is crossed
     const nowMobile = isMobile();
     if (nowMobile !== _lastMobile) {
       _lastMobile = nowMobile;

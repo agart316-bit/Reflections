@@ -577,9 +577,6 @@ main { position: relative; z-index: 1; }
   .toc-inner { grid-column: 1 / 13; }
 }
 
-/* The nav wrapper is only used on mobile; hide it on desktop */
-.toc-header-nav { display: none; }
-
 .toc-header {
   display: grid;
   grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
@@ -1467,7 +1464,7 @@ main { position: relative; z-index: 1; }
 .ov-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
   letter-spacing: 0;
   line-height: 1.15;
   color: var(--ink);
@@ -1518,7 +1515,7 @@ main { position: relative; z-index: 1; }
 
 .ov-aph {
   font-family: 'EB Garamond', Georgia, serif;
-  font-size: clamp(1rem, 1.45vw, 1.13rem);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
   line-height: 1.85;
   color: var(--ink-soft);
   padding: 0;
@@ -1890,46 +1887,39 @@ main { position: relative; z-index: 1; }
     padding: clamp(20px, 4vh, 40px) 0 clamp(36px, 7vh, 64px);
   }
 
-  /* Top header: nav row + centred title below */
+  /* Reflow to two rows: left+right on top, centre below */
   .toc-header {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0;
     padding-bottom: clamp(14px, 2.5vh, 24px);
-    /* reset the desktop grid */
-    grid-template-columns: none;
+    gap: 0;
   }
 
-  /* Show the nav wrapper on mobile */
-  .toc-header-nav {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+  /* Row 1: Preface on left, Twelve Chapters on right */
+  .toc-header .left {
+    order: 1;
+    flex: 0 0 auto;
   }
 
-  /* Hide the standalone left/right divs that live outside .toc-header-nav */
-  .toc-header > .left,
-  .toc-header > .right {
-    display: none;
-  }
-
-  /* Left/right inside the nav wrapper */
-  .toc-header-nav .left,
-  .toc-header-nav .right {
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
+  .toc-header .right {
+    order: 2;
+    flex: 0 0 auto;
+    margin-left: auto;
     white-space: nowrap;
   }
 
+  /* Row 2: title block full-width and centred */
   .toc-header .center {
+    order: 3;
+    flex: 0 0 100%;
     gap: 8px;
     white-space: normal;
     text-align: center;
+    margin-top: 14px;
   }
 
+  /* Hide eyebrow on mobile */
   .toc-header .center .t-caps {
     display: none;
   }
@@ -2147,19 +2137,11 @@ main { position: relative; z-index: 1; }
   /* ─── Overlay on mobile ───────────────────────────────── */
   .overlay-card {
     width: min(560px, 92vw);
-    /* leave room for the nav bar below — nav is ~64px + its bottom offset */
-    max-height: calc(100dvh - clamp(100px, 18vh, 140px) - 80px);
-    top: clamp(100px, 16vh, 136px);
-    transform: translate(-50%, 0) !important; /* anchor to top, not centre */
+    max-height: min(640px, 82dvh);
   }
 
-  /* override the open-state transform so it doesn't re-centre vertically */
-  .overlay-card.open {
-    transform: translate(-50%, 0) rotateX(0) scale(1) !important;
-  }
-
-  .ov-head  { padding: 22px 40px 12px; }
-  .ov-body  { padding: 0 40px 24px; }
+  .ov-head  { padding: 22px 56px 12px; }
+  .ov-body  { padding: 0 56px 24px; }
   .ov-title { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
 
   .ov-aph {
