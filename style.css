@@ -519,30 +519,45 @@ main { position: relative; z-index: 1; }
 .home-cta {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 0;
   cursor: pointer;
-  background: none;
-  border: none;
-  color: var(--ink);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  color: var(--paper);
   font-family: 'EB Garamond', Georgia, serif;
   font-variant: all-small-caps;
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.32em;
-  padding: 14px 4px;
+  padding: 16px 32px;
   text-decoration: none;
   white-space: nowrap;
-  opacity: 0.85;
-  transition: gap 0.5s var(--ease-leaf), letter-spacing 0.5s var(--ease-leaf), opacity 0.4s var(--ease-paper);
+  opacity: 1;
+  transition:
+    letter-spacing 0.5s var(--ease-leaf),
+    background 0.4s var(--ease-paper),
+    color 0.4s var(--ease-paper),
+    box-shadow 0.4s var(--ease-paper);
   animation: pageFade 1.6s var(--ease-paper) 1s both;
+  box-shadow: 0 2px 12px -4px rgba(20,17,8,0.28);
 }
-.home-cta-line {
-  width: 44px; height: 1px;
+.home-cta:hover {
+  letter-spacing: 0.42em;
+  background: transparent;
+  color: var(--ink);
+  box-shadow: 0 2px 16px -4px rgba(20,17,8,0.18);
+}
+/* dark palette inversion */
+[data-palette="cocoa"] .home-cta {
   background: var(--ink);
-  transition: width 0.5s var(--ease-leaf);
+  border-color: var(--ink);
+  color: var(--paper-deep);
 }
-.home-cta:hover { gap: 22px; letter-spacing: 0.42em; opacity: 1; }
-.home-cta:hover .home-cta-line { width: 72px; }
+[data-palette="cocoa"] .home-cta:hover {
+  background: transparent;
+  color: var(--ink);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════
    CHAPTERS — TABLE OF CONTENTS
@@ -561,6 +576,9 @@ main { position: relative; z-index: 1; }
 @media (max-width: 900px) {
   .toc-inner { grid-column: 1 / 13; }
 }
+
+/* The nav wrapper is only used on mobile; hide it on desktop */
+.toc-header-nav { display: none; }
 
 .toc-header {
   display: grid;
@@ -855,6 +873,7 @@ main { position: relative; z-index: 1; }
   pointer-events: none;
 }
 .reading-header > * { pointer-events: auto; }
+
 
 .reading-header-inner {
   display: grid;
@@ -1788,14 +1807,387 @@ main { position: relative; z-index: 1; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   RESPONSIVE — PHONE  (≤640px)  ← phone work deferred for now
+   RESPONSIVE — PHONE  (≤640px)
 ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .fan-container { width: 100vw; height: 70vh; }
-  .rcard { width: clamp(100px, 28vw, 140px); }
-  .overlay-card { width: min(560px, 94vw); }
-  .ov-head { padding: 26px 24px 16px; }
-  .ov-body { padding: 0 24px 28px; }
-  .toc-row { grid-template-columns: 44px 1fr; padding: 16px 0; }
-  .toc-meta { grid-column: 2; align-items: flex-start; flex-direction: row; gap: 14px; margin-top: 8px; }
+
+  /* ─── Global ──────────────────────────────────────────── */
+  html { font-size: 15px; }
+
+  .grid {
+    padding: 0 clamp(24px, 7vw, 36px);
+  }
+
+  /* ─── Home ────────────────────────────────────────────── */
+  #screen-home {
+    padding: clamp(36px, 8vh, 64px) 0 clamp(48px, 8vh, 80px);
+  }
+
+  .home-inner {
+    gap: clamp(20px, 4vh, 36px);
+    align-items: center;
+  }
+
+  .home-eyebrow span { font-size: 0.88rem; letter-spacing: 0.22em; }
+
+  .home-subtitle {
+    font-size: clamp(1rem, 4.2vw, 1.2rem);
+    max-width: 36ch;
+  }
+
+  .home-attribution {
+    font-size: 0.88rem;
+    margin-top: 10px;
+  }
+
+  .home-preface,
+  .home-note {
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+  }
+
+  .home-preface p {
+    font-size: clamp(0.95rem, 3.8vw, 1.05rem);
+    line-height: 1.78;
+    text-align: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 8 3 3;
+    overflow-wrap: break-word;
+  }
+
+  .home-preface p:first-child::first-letter {
+    display: none;
+  }
+
+  .home-note p {
+    font-size: clamp(0.88rem, 3.5vw, 0.98rem);
+    line-height: 1.72;
+    text-align: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 8 3 3;
+    overflow-wrap: break-word;
+  }
+
+  .home-cta {
+    font-size: 0.92rem;
+    padding: 14px 28px;
+    gap: 14px;
+  }
+
+  /* ─── TOC ─────────────────────────────────────────────── */
+  #screen-chapters {
+    padding: clamp(20px, 4vh, 40px) 0 clamp(36px, 7vh, 64px);
+  }
+
+  /* Top header: nav row + centred title below */
+  .toc-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-bottom: clamp(14px, 2.5vh, 24px);
+    /* reset the desktop grid */
+    grid-template-columns: none;
+  }
+
+  /* Show the nav wrapper on mobile */
+  .toc-header-nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  /* Hide the standalone left/right divs that live outside .toc-header-nav */
+  .toc-header > .left,
+  .toc-header > .right {
+    display: none;
+  }
+
+  /* Left/right inside the nav wrapper */
+  .toc-header-nav .left,
+  .toc-header-nav .right {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+
+  .toc-header .center {
+    gap: 8px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .toc-header .center .t-caps {
+    display: none;
+  }
+
+  .toc-header h2 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+    margin-top: 2px;
+  }
+
+  /* Chapter rows: num · body · symbol (symbol back to right) */
+  .toc-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 28px;
+    align-items: center;
+    padding: 11px 0;
+    gap: 10px;
+  }
+
+  .toc-body {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Disable the push-right hover on mobile — no padding shift */
+  .toc-row,
+  :root:not([data-toc-hover]) .toc-row,
+  [data-toc-hover="marker"] .toc-row,
+  [data-toc-hover="drift"] .toc-row,
+  [data-toc-hover="wash"] .toc-row {
+    padding-left: 0 !important;
+    transform: none !important;
+  }
+
+  /* Keep the accent colour change but no layout shift */
+  :root:not([data-toc-hover]) .toc-row:hover,
+  [data-toc-hover="marker"] .toc-row:hover,
+  [data-toc-hover="drift"] .toc-row:hover,
+  [data-toc-hover="wash"] .toc-row:hover,
+  [data-toc-hover="ornament"] .toc-row:hover {
+    padding-left: 0 !important;
+    transform: none !important;
+    background: none !important;
+  }
+
+  /* Hide the marker pseudo on mobile */
+  :root:not([data-toc-hover]) .toc-row::before,
+  [data-toc-hover="marker"] .toc-row::before { display: none; }
+
+  .toc-meta {
+    /* stays as its own column on the right */
+    grid-column: auto;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0;
+    justify-self: end;
+  }
+
+  .toc-symbol {
+    font-size: 1.2rem;
+  }
+
+  .toc-num {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    text-align: left;
+  }
+
+  .toc-name {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    line-height: 1.2;
+  }
+
+  .toc-question {
+    font-size: clamp(0.82rem, 3.2vw, 0.92rem);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ─── Reading header ──────────────────────────────────── */
+  .reading-header {
+    padding-top: clamp(28px, 5vh, 48px);
+  }
+
+  /* ── Reflow to two rows using flex ── */
+  .reading-header-row {
+    grid-column: 1 / 13;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Row 1: Contents on left, Chapter num on right */
+  .reading-header .left {
+    order: 1;
+    flex: 0 0 auto;
+  }
+
+  .reading-header .right {
+    order: 2;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  /* Hide the original centre (num + name stacked) */
+  .reading-header .center {
+    display: none;
+  }
+
+  /* Move chapter-num into the right slot by overriding visibility */
+  /* Chapter num is inside .center which is hidden — show it via right slot */
+  /* Instead: show chapter-num in .right, hide progress */
+  .reading-progress { display: none; }
+
+  /* Inject chapter num into right slot — it lives in .center so we
+     reorder: show .center but only its num child, hide the name */
+  .reading-header .center {
+    display: contents; /* dissolve the container, children flow into flex */
+  }
+  .reading-chapter-num {
+    order: 2;
+    margin-left: auto;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+  }
+  /* Name becomes its own full-width row below */
+  .reading-chapter-name {
+    order: 3;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    white-space: normal;
+    text-align: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  /* Right div (contains progress) — hide it, num already in flow */
+  .reading-header .right {
+    display: none;
+  }
+
+  /* Question centred below */
+  .reading-question {
+    grid-column: 1 / 13;
+    font-size: 0.86rem;
+    padding: 0 clamp(12px, 3vw, 20px);
+    margin-top: 4px;
+    text-align: center;
+  }
+
+  /* ─── Card GRID (mobile-only replaces the fan) ────────── */
+  .fan-stage {
+    padding-top: clamp(120px, 22vh, 160px);
+    padding-bottom: clamp(60px, 10vh, 100px);
+    align-items: flex-start;
+    justify-content: center;
+    min-height: auto; /* allow page to scroll naturally */
+  }
+
+  /* Hide the decorative surface-shadow on mobile */
+  .fan-stage::before { display: none; }
+
+  .fan-container {
+    /* Grid mode: let height be auto */
+    position: relative;
+    width: min(480px, 98vw);
+    height: auto !important;
+    perspective: none;
+  }
+
+  /* Grid layout for cards */
+  .fan-container.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(10px, 2.5vw, 16px);
+    padding: 0 clamp(4px, 1.5vw, 10px);
+  }
+
+  /* In grid mode each card is a static grid item, not absolute */
+  .fan-container.grid-layout .rcard {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    left: auto;
+    top: auto;
+    margin: 0;
+    transform: none !important;
+    --rest-rot: 0deg;
+    --rest-x: 0px;
+    --rest-y: 0px;
+  }
+
+  /* Animate grid cards in with a simple fade-up (no fan rotate) */
+  .fan-container.grid-layout .rcard {
+    opacity: 0;
+    animation: gridCardRise 0.55s var(--ease-leaf) forwards;
+    animation-delay: calc(var(--grid-i, 0) * 60ms + 120ms);
+  }
+  @keyframes gridCardRise {
+    from { opacity: 0; transform: translateY(14px) !important; }
+    to   { opacity: 1; transform: translateY(0)   !important; }
+  }
+
+  /* No hover lift on grid cards — touch devices don't need it */
+  .fan-container.grid-layout .rcard:not(.is-expanded):not(.read-done):hover {
+    transform: none !important;
+    z-index: auto !important;
+    filter: none;
+  }
+
+  /* ─── Overlay on mobile ───────────────────────────────── */
+  .overlay-card {
+    width: min(560px, 92vw);
+    /* leave room for the nav bar below — nav is ~64px + its bottom offset */
+    max-height: calc(100dvh - clamp(100px, 18vh, 140px) - 80px);
+    top: clamp(100px, 16vh, 136px);
+    transform: translate(-50%, 0) !important; /* anchor to top, not centre */
+  }
+
+  /* override the open-state transform so it doesn't re-centre vertically */
+  .overlay-card.open {
+    transform: translate(-50%, 0) rotateX(0) scale(1) !important;
+  }
+
+  .ov-head  { padding: 22px 40px 12px; }
+  .ov-body  { padding: 0 40px 24px; }
+  .ov-title { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
+
+  .ov-aph {
+    font-size: clamp(0.93rem, 3.6vw, 1.05rem);
+    line-height: 1.75;
+  }
+
+  /* ─── Nav bar ─────────────────────────────────────────── */
+  .rcard-nav {
+    width: min(340px, 94vw);
+    gap: clamp(12px, 3vw, 24px);
+    padding: 16px clamp(16px, 4vw, 28px) 4px;
+    bottom: clamp(12px, 2.5vh, 22px);
+  }
+
+  .rcard-nav::before {
+    left: 12%;
+    right: 12%;
+  }
+
+  .rcard-nav-btn {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    gap: 7px;
+  }
+
+  .rcard-nav-counter {
+    font-size: 0.92rem;
+  }
+
+  .rcard-nav:has(#nav-prev-chapter[style*="inline-flex"]),
+  .rcard-nav:has(#nav-next-chapter[style*="inline-flex"]) {
+    width: min(96vw, 480px);
+  }
+
+  .rcard-chapter-nav span:last-child {
+    display: none; /* hide "Previous Chapter" / "Next Chapter" text, keep arrow */
+  }
 }

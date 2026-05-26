@@ -38,10 +38,18 @@
       `${done} of ${total} revealed`;
   }
 
+  const isMobile = () => window.innerWidth <= 640;
+
   function buildFan() {
     const container = document.getElementById('fan-container');
     container.innerHTML = '';
     const total = ch.cards.length;
+
+    if (isMobile()) {
+      buildGrid(container, total);
+      return;
+    }
+
     const isRow = total <= 3;
 
     // Position minimal card sets between the header and the shadow
@@ -50,6 +58,7 @@
     } else {
       container.classList.remove('cards-minimal');
     }
+    container.classList.remove('grid-layout');
 
     const spread = Math.min(Math.max(total * 18, 30), 142);
     const startAngle = -spread / 2;
@@ -114,6 +123,40 @@
     });
   }
 
+  function buildGrid(container, total) {
+    container.classList.add('grid-layout');
+    container.classList.remove('cards-minimal');
+
+    ch.cards.forEach((cardData, i) => {
+      const el = document.createElement('div');
+      el.className = 'rcard';
+      el.dataset.index = i;
+      el.style.setProperty('--accent', ch.color);
+      el.style.setProperty('--rest-rot', '0deg');
+      el.style.setProperty('--rest-x', '0px');
+      el.style.setProperty('--rest-y', '0px');
+      el.style.setProperty('--grid-i', i);
+      el.style.zIndex = 1;
+
+      el.innerHTML = `
+        <div class="rcard-inner">
+          <div class="rcard-face-front">
+            <span class="rcard-accent-bar"></span>
+            <span class="rcard-symbol">${ch.symbol}</span>
+            <div>
+              <div class="rcard-title">${cardData.title}</div>
+              <div class="rcard-title-rule"></div>
+            </div>
+            <span class="rcard-num">${toRoman(i + 1).toLowerCase()}</span>
+          </div>
+        </div>
+      `;
+
+      el.addEventListener('click', () => expandCard(i));
+      container.appendChild(el);
+    });
+  }
+
   function buildOverlay(index) {
     const cardData = ch.cards[index];
 
@@ -122,10 +165,15 @@
     ov.style.setProperty('--accent', ch.color);
 
     // Wider overlay on tablet and desktop; narrower only on small screens
+    const mobile  = isMobile();
     const isTablet = window.innerWidth <= 1024 && window.innerWidth > 640;
-    const overlayMaxW = isTablet ? 520 : (window.innerWidth > 1024 ? 560 : 380);
-    const W = Math.min(overlayMaxW, window.innerWidth * (isTablet ? 0.85 : 0.82));
-    const maxH = Math.min(window.innerHeight * (isTablet ? 0.84 : 0.82), isTablet ? 720 : 620);
+    const overlayMaxW = mobile ? Math.min(window.innerWidth * 0.94, 480)
+                      : isTablet ? 520
+                      : 560;
+    const W = Math.min(overlayMaxW, window.innerWidth * (mobile ? 0.94 : isTablet ? 0.85 : 0.82));
+    const maxH = mobile
+      ? Math.min(window.innerHeight * 0.88, 640)
+      : Math.min(window.innerHeight * (isTablet ? 0.84 : 0.82), isTablet ? 720 : 620);
     const L = (window.innerWidth  - W) / 2;
     const T = (window.innerHeight - maxH) / 2;
 
@@ -346,8 +394,15 @@
     if (e.key === 'ArrowRight') document.getElementById('nav-next').click();
     if (e.key === 'ArrowLeft')  document.getElementById('nav-prev').click();
   });
+  let _lastMobile = isMobile();
   window.addEventListener('resize', () => {
     if (expandedIndex !== -1) collapseCard();
+    // Rebuild fan/grid if mobile breakpoint is crossed
+    const nowMobile = isMobile();
+    if (nowMobile !== _lastMobile) {
+      _lastMobile = nowMobile;
+      buildFan();
+    }
   });
 
   updateProgress();
