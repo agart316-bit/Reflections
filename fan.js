@@ -305,6 +305,8 @@
     expandedIndex = -1;
     document.getElementById('fan-dim').classList.remove('visible');
     document.getElementById('rcard-nav').classList.remove('visible');
+    const chapterRow = document.getElementById('rcard-chapter-row');
+    if (chapterRow) chapterRow.style.display = 'none';
   }
 
   function _collapseAndThen(nextIndex) {
@@ -351,6 +353,13 @@
     const nextChapterBtn = document.getElementById('nav-next-chapter');
     if (prevChapterBtn) prevChapterBtn.style.display = (allRead && ch.id > 1)  ? 'inline-flex' : 'none';
     if (nextChapterBtn) nextChapterBtn.style.display = (allRead && ch.id < 12) ? 'inline-flex' : 'none';
+
+    // Keep the chapter row visible whenever at least one chapter button is shown
+    const chapterRow = document.getElementById('rcard-chapter-row');
+    if (chapterRow) {
+      const showRow = allRead && (ch.id > 1 || ch.id < 12);
+      chapterRow.style.display = showRow ? 'flex' : 'none';
+    }
   }
 
   document.getElementById('nav-prev').addEventListener('click', () => {

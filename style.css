@@ -1577,11 +1577,13 @@ main { position: relative; z-index: 1; }
   left: 50%;
   transform: translateX(-50%);
   z-index: 90;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: clamp(22px, 4vw, 56px);
   padding: 18px clamp(28px, 4vw, 56px) 6px;
   width: min(480px, 80vw);
-  justify-content: space-between;
   opacity: 0;
   transition: opacity 0.5s var(--ease-paper);
 }
@@ -1601,6 +1603,16 @@ main { position: relative; z-index: 1; }
 .rcard-nav.visible {
   display: flex;
   opacity: 1;
+}
+
+/* Chapter row — hidden by default, shown on mobile when all cards are read */
+.rcard-chapter-row {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 6vw, 56px);
+  width: 100%;
+  padding-top: 10px;
 }
 
 .rcard-nav-btn {
@@ -1662,14 +1674,7 @@ main { position: relative; z-index: 1; }
   opacity: 1;
   gap: 14px;
 }
-#nav-prev-chapter { order: -1; }
-#nav-next-chapter { order: 5; }
-
-/* Widen the nav bar to accommodate chapter buttons when visible */
-.rcard-nav:has(#nav-prev-chapter[style*="inline-flex"]),
-.rcard-nav:has(#nav-next-chapter[style*="inline-flex"]) {
-  width: min(720px, 92vw);
-}
+/* Desktop: chapter buttons stay in their row, no ordering needed */
 
 /* ═══════════════════════════════════════════════════════════════════════
    RESPONSIVE — TABLET  (≤1024px)
@@ -2152,8 +2157,7 @@ main { position: relative; z-index: 1; }
   /* ─── Nav bar ─────────────────────────────────────────── */
   .rcard-nav {
     width: min(340px, 94vw);
-    gap: clamp(12px, 3vw, 24px);
-    padding: 16px clamp(16px, 4vw, 28px) 4px;
+    padding: 16px clamp(16px, 4vw, 28px) 8px;
     bottom: clamp(12px, 2.5vh, 22px);
   }
 
@@ -2172,12 +2176,12 @@ main { position: relative; z-index: 1; }
     font-size: 0.92rem;
   }
 
-  .rcard-nav:has(#nav-prev-chapter[style*="inline-flex"]),
-  .rcard-nav:has(#nav-next-chapter[style*="inline-flex"]) {
-    width: min(96vw, 480px);
+  /* Chapter row: shown as a second line on mobile once all cards are read */
+  .rcard-chapter-row:has(button[style*="inline-flex"]) {
+    display: flex;
   }
 
   .rcard-chapter-nav span:last-child {
-    display: none; /* hide "Previous Chapter" / "Next Chapter" text, keep arrow */
+    display: inline; /* show full "Previous Chapter" / "Next Chapter" text on mobile row */
   }
 }
